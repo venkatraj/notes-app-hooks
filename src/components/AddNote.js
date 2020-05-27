@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import NotesContext from '../context/NotesContext';
+import useMousePosition from '../hooks/useMousePosition';
 
 const AddNote = () => {
-  console.log('AddNote');
   const { dispatch } = useContext(NotesContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const position = useMousePosition();
 
   const addNote = (e) => {
     e.preventDefault();
@@ -22,7 +23,9 @@ const AddNote = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea value={body} onChange={(e) => setBody(e.target.value)} />
-      <button type="submit">Add Note</button>
+      <button type="submit">
+        Add Note {position.x} - {position.y}
+      </button>
     </form>
   );
 };
